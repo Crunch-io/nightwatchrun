@@ -7,6 +7,7 @@ Usage
 -----
 
 - Create a copy of this repo (don't fork it)
+- ``yarn install`` to install all required dependencies
 - Add your Nightwatch_ tests in the ``e2e/tests`` folder, removing the existing ``crunchDemo.js``
 - Configure your environments in ``env/``. Start by updating ``env/stable`` and setting it to your valid URL
 - Update ``nightwatch.conf.js`` as needed
