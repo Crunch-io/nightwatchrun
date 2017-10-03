@@ -16,7 +16,7 @@ Usage
 
       ./nightwatchrun.sh -c nightwatch.conf.js
 
-   You should see output that looks like this:
+  You should see output that looks like this:
 
    .. code::
 
@@ -51,6 +51,45 @@ Usage
       Executed tests 1 times successfully
       Removing the docker container: nightwatchrun.nightwatch.conf.js
 
+Flags
+-----
+
+nightwatchrun supports a variety of flags that alter its operation:
+
+- ``-c`` [REQUIRED] -- The nightwatch configuration file to use, this is
+  required.
+- ``-e`` [DEFAULT: stable] -- The environment file to load, has to be available
+  in ``env/``
+- ``-w`` [DEFAULT: auto] -- The amount of workers that Nightwatch is allowed to
+  start at once. The default sets it automatically based upon the amount of
+  available cores on the host system. Lowering this may be necessary if tests
+  seem to be failing randomly.
+- ``-v`` [DEFAULT: latest] -- The Selenium container version tag to use,
+  defaults to ``latests``.
+- ``-i`` [DEFAULT: None] -- This is the local public IP of the host Docker is
+  running on, this is used with the ``local`` environment, see `Local
+  Environment`_ for more information.
+- ``-d`` [DEFALT: False] -- This will start the debug version of the Selenium
+  container, which starts a VNC server so that you may watch progress of
+  nightwatch testing in real time. Will ask user to press enter before
+  continuing a test run to give the user time to VNC to the newly running
+  instance.
+- ``-x`` [DEFAULT: 1] -- The amount of times to run the tests, this can be
+  handy when dealing with a flaky test that may or may not fail. The entire
+  test suite (unless alternate flags are passed to nightwatch) will be retried
+  the selected number of times.
+
+Passing flags to the underlying ``nightwatch`` is possible by ending flag input
+to ``nightwatchrun.sh`` with a ``--``, anything after the ``--`` will be passed
+through to ``nightwatch``. This can be used for instance to only run a singular
+test:
+
+.. code::
+
+    ./nightwatchrun.sh -c nightwatch.conf.js -e stable -- -t e2e/tests/crunchDemo.js
+
+Which will run that single test, instead of all tests.
+
 Local Environment
 -----------------
 
@@ -65,8 +104,18 @@ of the hosts public IP addresses. If you are using something like
 grunt-contrib-connect_ to host a local server, you need to set the ``hostname``
 parameter to ``*`` or ``0.0.0.0``.
 
+A ``prehook`` will attempt to determine the public IP address of the host
+machine when starting with a ``local`` environment, however if it is wrong you
+may override the IP address with the ``-i`` flag to ``nightwatchrun.sh``.
+
 This way the Docker container will connect to the host's public IP address and
 will be able to reach the locally running instance.
+
+.. code::
+
+    ./nightwatchrun.sh -e local -c nightwatch.conf.js
+
+Will run against the local environment.
 
 .. _Nightwatch: http://nightwatchjs.org/
 .. _grunt-contrib-connect: https://github.com/gruntjs/grunt-contrib-connect#hostname
