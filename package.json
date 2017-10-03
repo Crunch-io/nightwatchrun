@@ -1,0 +1,13 @@
+{
+  "name": "nightwatchrun",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Crunch-io/nightwatchrun.git"
+  },
+  "license": "MIT",
+  "scripts": {},
+  "dependencies": {
+    "nightwatch": "^0.9.16"
+  }
+}

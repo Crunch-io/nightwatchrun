@@ -1,0 +1,40 @@
+LOCALIPS=''
+HOSTIP=''
+
+function get_local_ips() {
+    if [ `uname -s` == 'Darwin' ]; then
+        while read IP; do
+            if [ -z "$LOCALIPS" ]; then
+                LOCALIPS="$IP"
+            else
+                LOCALIPS="$LOCALIPS $IP"
+            fi
+        done < <(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
+    fi
+
+    if [ `uname -s` == 'Linux' ]; then
+        # This may need to be replaced with a call to ip addr instead or something along those lines
+        while read IP; do
+            if [ -z "$LOCALIPS" ]; then
+                LOCALIPS="$IP"
+            else
+                LOCALIPS="$LOCALIPS $IP"
+            fi
+        done < <(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
+    fi
+}
+
+if [ -z "$local_ip" ]; then
+    get_local_ips
+    echo "The following local IP's were found: $LOCALIPS"
+    echo "Using the first IP address, override with -i IP if necessary"
+    read -d " " HOSTIP < <(echo $LOCALIPS)
+else
+    HOSTIP=$local_ip
+fi
+
+if [ -z "$HOSTIP" ]; then
+    echo "Unable to determine the hosts IP address, please provide with -i IP"
+fi
+
+echo "$HOSTIP local.crunch.io" | docker exec -i "${DOCKER_NAME}" sudo tee -a /etc/hosts
