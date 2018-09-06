@@ -12,7 +12,7 @@ debug=0
 selenium_container='selenium/standalone-chrome'
 
 
-while getopts ":c:e:w:v:a:dx:" opt; do
+while getopts ":c:e:w:v:i:dx:" opt; do
     case "$opt" in
     c)  config_file=$OPTARG
         ;;
