@@ -8,6 +8,6 @@
   "license": "MIT",
   "scripts": {},
   "dependencies": {
-    "nightwatch": "^0.9.16"
+    "nightwatch": "^1.1.13"
   }
 }
