@@ -421,9 +421,9 @@ netmask@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
 
-nightwatch@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/nightwatch/-/nightwatch-1.2.1.tgz#25cb8f54473fd18714bfb99cc160a58e76cbdfa7"
+nightwatch@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/nightwatch/-/nightwatch-1.2.3.tgz#330c88a4b4366811fcebc02e4d763f4a8ccf578d"
   dependencies:
     assertion-error "^1.1.0"
     chai-nightwatch "^0.3.0"
